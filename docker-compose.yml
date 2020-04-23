@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  server:
+    # image: python:3-alpine
+    build: ./
+    command: python -m flask run --host 0.0.0.0
+    working_dir: /app
+    env_file: .env
+    environment:
+      FLASK_APP: server.py
+      FLASK_ENV: development
+    ports:
+    - 5100:5000
+    volumes:
+    - .:/app
+    - site-packages:/usr/local/lib/python3.8/site-packages/
+
+volumes:
+  site-packages:
+    driver: local

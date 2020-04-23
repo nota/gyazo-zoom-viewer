@@ -1,2 +1,7 @@
 data/gyazo_data*
 index_files/gyazodata.js
+.ash_history
+.cache
+.env
+.python_history
+__pycache__
