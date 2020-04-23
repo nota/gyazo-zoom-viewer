@@ -32,7 +32,7 @@ def getGyazoImagesData(fetch, access_token, write_to_file=True, page_limit=None)
                     f.write(gyazo_res.text)
             else:
                 pages.append(gyazo_res.text)
-            if page_limit && page >= page_limit:
+            if page_limit and page >= page_limit:
                 break
 
     gyazo_viewer_data_all = []
