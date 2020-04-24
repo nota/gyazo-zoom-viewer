@@ -1,19 +1,31 @@
 version: '3.7'
+x-service: &svc
+  # image: python:3-alpine
+  build: ./
+  working_dir: /app
+  env_file: .env
+  environment:
+    FLASK_APP: web.py
+    FLASK_ENV: development
+    GOOGLE_APPLICATION_CREDENTIALS: /tmp/gcp-key.json
+    REDIS_URL: redis://redis
+  volumes:
+  - .:/app
+  - site-packages:/usr/local/lib/python3.8/site-packages/
+  depends_on:
+  - redis
+
 services:
   web:
-    # image: python:3-alpine
-    build: ./
+    <<: *svc
     command: python -m flask run --host 0.0.0.0
-    working_dir: /app
-    env_file: .env
-    environment:
-      FLASK_APP: web.py
-      FLASK_ENV: development
     ports:
     - 5100:5000
-    volumes:
-    - .:/app
-    - site-packages:/usr/local/lib/python3.8/site-packages/
+  worker:
+    <<: *svc
+    command: celery worker --app=worker.app --loglevel=info
+  redis:
+    image: redis
 
 volumes:
   site-packages:

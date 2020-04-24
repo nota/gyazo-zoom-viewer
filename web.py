@@ -1,5 +1,5 @@
-import os
-from flask import Flask, redirect, session, send_from_directory, url_for
+import os, tempfile
+from flask import Flask, redirect, session, send_from_directory, send_file, url_for
 app = Flask(__name__, static_folder='.')
 app.secret_key = os.environ.get('FLASK_SECRET_KEY')
 
@@ -15,7 +15,6 @@ gyazo_client = oauth.register(
 )
 
 from main import getGyazoImagesData
-
 
 @app.route('/')
 def root():
@@ -43,10 +42,18 @@ def me():
 def getIndexFiles(path):
     return send_from_directory('index_files', path)
 
+import worker
+
 @app.route('/index_files/gyazodata.js')
 def getGyazoData():
-    return getGyazoImagesData(
-        fetch=True,
-        access_token=session['token']['access_token'],
-        write_to_file=False,
-        page_limit=10)
+    uid = me()['user']['uid']
+    blob = worker.gyazodataGcsBlob(uid)
+    if blob.exists():
+        with tempfile.NamedTemporaryFile() as temp:
+            blob.download_to_filename(temp.name)
+            return send_file(temp.name)
+    else:
+        placeholder = 'var data = [];'
+        blob.upload_from_string(placeholder)
+        worker.createGyazodata.delay(uid, session['token']['access_token'])
+        return placeholder
