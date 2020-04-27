@@ -15,8 +15,8 @@
     <script language="JavaScript" src="./index_files/gyazodata.js"></script>
     <script type="text/javascript" charset="UTF-8" src="./index_files/common.js"></script>
     <script type="text/javascript" charset="UTF-8" src="./index_files/util.js"></script>
-    <script language="JavaScript" src="./index_files/rainbowzoomer3.js"></script>
     <script language="JavaScript" src="./index_files/gyazobrowser.js"></script>
+    <script language="JavaScript" src="./index_files/rainbowzoomer3.js"></script>
     <script type="text/javascript">
       window.onload = init;
     </script>
@@ -26,14 +26,20 @@
     
     <span style="position:absolute;left:10px;top:5px;font-weight:bold;font-size:20;">Gyazo Browser</span>
     
+    <input type="checkbox" id="hideocr" style="position:absolute;top:8;left:320;width:20;height:20">
+    <span style="position:absolute;top:8;left:352;height:20">文書を非表示</span>
+    
     <span id="kwsearch" style="position:absolute;top:10;left:180;">
       <input type="text" id="query" autocomplete="off" onkeyup="dynamicquery()" style="font-size:10pt;width:120;">
     </span>  
-    <div id="photos" style="background-color: rgb(255, 255, 255); position: absolute; top: 50px; left: 5px; width: 1908px; height: 1947px; clip: rect(0px, 1908px, 1947px, 0px);"><canvas width="1908" height="1947" style="position: absolute; width: 1908px; height: 1947px;"></canvas><span style="position: absolute; left: 30px; top: -180px;">2000/4 (170枚)</span><span style="position: absolute; left: 30px; top: -160px;">2000/3 (22枚)</span><span style="position: absolute; left: 30px; top: -140px;">2000/2 (23枚)</span><span style="position: absolute; left: 30px; top: -120px;">2000/1 (156枚)</span><span style="position: absolute; left: 10px; top: -100px;">1999 (793枚)</span><span style="position: absolute; left: 30px; top: -80px;">1999/12 (192枚)</span><span style="position: absolute; left: 30px; top: -60px;">1999/11 (261枚)</span><span style="position: absolute; left: 30px; top: -40px;">1999/6 (30枚)</span><span style="position: absolute; left: 30px; top: -20px;">1999/5 (63枚)</span><span style="position: absolute; left: 30px; top: 0px;">1999/4 (78枚)</span><span style="position: absolute; left: 30px; top: 20px;">1999/3 (71枚)</span><span style="position: absolute; left: 30px; top: 40px;">1999/2 (32枚)</span><span style="position: absolute; left: 30px; top: 60px;">1999/1 (66枚)</span><span style="position: absolute; left: 10px; top: 80px;">1998 (829枚)</span><span style="position: absolute; left: 30px; top: 100px;">1998/12 (100枚)</span><span style="position: absolute; left: 30px; top: 120px;">1998/11 (61枚)</span><span style="position: absolute; left: 30px; top: 140px;">1998/10 (14枚)</span><span style="position: absolute; left: 30px; top: 160px;">1998/9 (41枚)</span><span style="position: absolute; left: 30px; top: 180px;">1998/7 (153枚)</span><span style="position: absolute; left: 30px; top: 200px;">1998/6 (16枚)</span><span style="position: absolute; left: 30px; top: 220px;">1998/5 (49枚)</span><span style="position: absolute; left: 30px; top: 240px;">1998/4 (41枚)</span><span style="position: absolute; left: 30px; top: 260px;">1998/3 (77枚)</span><span style="position: absolute; left: 30px; top: 280px;">1998/2 (109枚)</span><span style="position: absolute; left: 30px; top: 300px;">1998/1 (168枚)</span><span style="position: absolute; left: 10px; top: 320px;">1997 (454枚)</span><span style="position: absolute; left: 30px; top: 340px;">1997/12 (46枚)</span><span style="position: absolute; left: 30px; top: 360px;">1997/11 (129枚)</span><span style="position: absolute; left: 30px; top: 380px;">1997/10 (202枚)</span><span style="position: absolute; left: 30px; top: 400px;">1997/9 (65枚)</span><span style="position: absolute; left: 30px; top: 420px;">1997/8 (9枚)</span><span style="position: absolute; left: 30px; top: 440px;">1997/2 (3枚)</span><span style="position: absolute; left: 10px; top: 460px;">1996 (1枚)</span><span style="position: absolute; left: 30px; top: 480px;">1996/8 (1枚)</span><span style="position: absolute; left: 10px; top: 500px;">1995 (1枚)</span><span style="position: absolute; left: 30px; top: 520px;">1995/3 (1枚)</span></div>
-
-    <div id="centerline" style="position: absolute; top: 560px; left: 0px; width: 1908px; border-width: 4px 0px 0px; border-color: rgba(0, 0, 0, 0.133); border-style: dashed; display: none; pointer-events: none;"><div>
-    
-  
-
-
-</div></div></body></html>
+    <div id="photos" style="background-color: rgb(255, 255, 255); position: absolute;
+			    top: 50px; left: 5px; width: 1908px; height: 1947px; clip: rect(0px, 1908px, 1947px, 0px);">
+      <canvas width="1908" height="1947" style="position: absolute; width: 1908px; height: 1947px;"></canvas>
+    </div>
+      
+    <div id="centerline" style="position: absolute; top: 560px; left: 0px; width: 1908px;
+				border-width: 4px 0px 0px; border-color: rgba(0, 0, 0, 0.133);
+				border-style: dashed; display: none; pointer-events: none;">
+    </div>
+  </body>
+</html>
