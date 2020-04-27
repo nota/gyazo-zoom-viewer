@@ -7,3 +7,5 @@
 - `brew install python3`
 - `pip install -r requirements.txt`
 - `export gyazo_access_token=XXXXX && python main.py`
+
+use python3 on Mac
