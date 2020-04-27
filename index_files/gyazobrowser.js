@@ -42,7 +42,7 @@ function searchFunc(keyword){
 function photoDiv(rainbowzoomer){ // 写真を表示するdivを生成
     let div = document.createElement('div')
     let image = document.createElement('img')
-    image.src = this.url
+    image.src = this.gyazourl
     //image.style.width = "120px"
     image.style.maxWidth = "120px"
     image.style.maxHeight = "90px"
@@ -73,6 +73,9 @@ function initPhotoData(){
     //let lastyear = Number(data[data.length-1].str.match(/^\d{4}/)[0])
     let lastyear = Number(data[0].str.match(/^\d{4}/)[0])
     let startyear = Number(data[data.length-1].str.match(/^\d{4}/)[0])
+
+    let hideocr = document.getElementById("hideocr").checked
+    let commentedonly = document.getElementById("commentedonly").checked
 
     //for(let year=startyear;year<=lastyear;year++){
     for(let year=lastyear;year>=startyear;year--){
@@ -105,17 +108,34 @@ function initPhotoData(){
 		    index += 1
 		}
 		while(index < data.length && data[index].str.slice(0,8) == daystr){
-		    entry = data[index]
-		    entry.str = ""
-		    entry.str = daystr ////////////////////
-		    entry.str = `${year}/${month}/${day}`
-		    entry.indent = 3
-		    entry.div = photoDiv
-		    entry.size = photoSize
-		    yentry.count += 1
-		    mentry.count += 1
-		    dentry.count += 1
-		    entries.push(entry)
+		    //entry = data[index]
+		    if(hideocr && data[index] && data[index].comment && data[index].comment.length > 400){
+		    }
+		    else if(commentedonly && data[index] && (data[index].usercomment == "" || typeof data[index].usercomment === "undefined")){
+			// コメントが無いものは非表示
+			// ブクマしたものはコメントを書くようにする
+		    }
+		    else {
+			entry = {}
+			// entry.str = data[index].str
+			entry.id = data[index].id
+			entry.url = data[index].url
+			entry.gyazourl = data[index].gyazourl
+			entry.keywords = data[index].keywords
+			entry.description = data[index].description
+			entry.comment = data[index].comment
+			entry.title = data[index].title
+			
+			//entry.str = daystr ////////////////////
+			entry.str = `${year}/${month}/${day}`
+			entry.indent = 3
+			entry.div = photoDiv
+			entry.size = photoSize
+			yentry.count += 1
+			mentry.count += 1
+			dentry.count += 1
+			entries.push(entry)
+		    }
 		    index += 1
 		}
 	    }
@@ -148,7 +168,26 @@ var expanded = false;
 var kwentries = [];
 var keywordZoomer;
 
+document.getElementById("hideocr").addEventListener("change",function(){
+    init()
+
+    let query = document.getElementById("query").value
+    if(query != ""){
+	keywordSearchAndDisplay(query)
+    }
+})
+
+document.getElementById("commentedonly").addEventListener("change",function(){
+    init()
+
+    let query = document.getElementById("query").value
+    if(query != ""){
+	keywordSearchAndDisplay(query)
+    }
+})
+
 function init(){
+    entries = []
 
     // RainbowZoomerで表示するための写真データ初期化
     initPhotoData();
@@ -220,18 +259,7 @@ function keywordSearchAndDisplay(q){
     // RainbowZoomer表示
     photoZoomer.update(q == "verystrangesearchstring" ? photoZoomer.maxDOI + 1.0 : 6.0);
 
-    for(var i=0;i<entries.length;i++){
-	var entry = entries[i];
-	if(entry.lat){
-	    if(entry.matched){
-		var latlng = new google.maps.LatLng(entry.lat,entry.long);
-		map.setCenter(latlng);
-		ignoreNextZoom = true;
-		map.setZoom(12);
-		break;
-	    }
-	}
-    }
+    // alert(document.getElementById("hideocr").checked)
 }
 
 function dynamicquery(){

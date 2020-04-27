@@ -106,10 +106,11 @@ def convertPage(images):
         data = {
             "id": id_str,
             "str": created_at.strftime("%Y%m%d%H%M%S"),
-            "url": image["thumb_url"],
+            "gyazourl": image["thumb_url"],
             "keywords": "",
             "description": description,
-            "comment": comment
+            "comment": comment,
+            "usercomment": image["metadata"]["desc"]
         }
         gyazo_viewer_data.extend([data])
     return gyazo_viewer_data

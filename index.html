@@ -15,11 +15,7 @@
     <script language="JavaScript" src="./index_files/gyazodata.js"></script>
     <script type="text/javascript" charset="UTF-8" src="./index_files/common.js"></script>
     <script type="text/javascript" charset="UTF-8" src="./index_files/util.js"></script>
-    <script language="JavaScript" src="./index_files/gyazobrowser.js"></script>
     <script language="JavaScript" src="./index_files/rainbowzoomer3.js"></script>
-    <script type="text/javascript">
-      window.onload = init;
-    </script>
   </head>
   
   <body style="background-color:#eee;margin:0px;border:0px;padding:0px;font-family:sans-serif;" data-__gyazo-extension-added-paste-support="true">
@@ -28,6 +24,9 @@
     
     <input type="checkbox" id="hideocr" style="position:absolute;top:8;left:320;width:20;height:20">
     <span style="position:absolute;top:8;left:352;height:20">文書を非表示</span>
+    
+    <input type="checkbox" id="commentedonly" style="position:absolute;top:8;left:470;width:20;height:20">
+    <span style="position:absolute;top:8;left:502;height:20">コメントつきのみ</span>
     
     <span id="kwsearch" style="position:absolute;top:10;left:180;">
       <input type="text" id="query" autocomplete="off" onkeyup="dynamicquery()" style="font-size:10pt;width:120;">
@@ -41,5 +40,10 @@
 				border-width: 4px 0px 0px; border-color: rgba(0, 0, 0, 0.133);
 				border-style: dashed; display: none; pointer-events: none;">
     </div>
+
+    <script language="JavaScript" src="./index_files/gyazobrowser.js"></script>
+    <script type="text/javascript">
+      window.onload = init;
+    </script>
   </body>
 </html>
