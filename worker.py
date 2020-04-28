@@ -8,9 +8,11 @@ open('/tmp/gcp-key.json', 'w').write(
 from google.cloud import storage
 from main import getGyazoImagesData
 
-def gyazodataGcsBlob(uid):
+def gyazodataGcsBlob(uid, get=False):
     storage_client = storage.Client()
     bucket = storage_client.bucket('gyazo-zoom-viewer')
+    if get:
+        return bucket.get_blob("%s.json" % uid)
     return bucket.blob("%s.json" % uid)
 
 @app.task

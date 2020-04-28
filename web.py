@@ -53,7 +53,18 @@ def getGyazoData():
             blob.download_to_filename(temp.name)
             return send_file(temp.name)
     else:
-        placeholder = 'var data = [];'
-        blob.upload_from_string(placeholder)
-        worker.createGyazodata.delay(uid, session['token']['access_token'])
-        return placeholder
+        update()
+        return ''
+
+@app.route('/update', methods=['POST'])
+def update():
+    uid = me()['user']['uid']
+    blob = worker.gyazodataGcsBlob(uid, get=True)
+    if (blob and blob.size <= 14):
+        return "Please wait until gyazodata is available.", 429
+
+    blob = worker.gyazodataGcsBlob(uid)
+    placeholder = 'var data = [];'
+    blob.upload_from_string(placeholder)
+    worker.createGyazodata.delay(uid, session['token']['access_token'])
+    return redirect('/')
