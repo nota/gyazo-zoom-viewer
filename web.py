@@ -1,5 +1,5 @@
 import os, tempfile
-from flask import Flask, redirect, session, send_from_directory, send_file, url_for
+from flask import Flask, redirect, session, send_from_directory, send_file, url_for, request
 app = Flask(__name__, static_folder='.')
 app.secret_key = os.environ.get('FLASK_SECRET_KEY')
 
@@ -46,8 +46,9 @@ import worker
 
 @app.route('/index_files/gyazodata.js')
 def getGyazoData():
+    v = request.args.get('v')
     uid = me()['user']['uid']
-    blob = worker.gyazodataGcsBlob(uid)
+    blob = worker.gyazodataGcsBlob(uid, v=v)
     if blob.exists():
         with tempfile.NamedTemporaryFile() as temp:
             blob.download_to_filename(temp.name)
@@ -55,5 +56,5 @@ def getGyazoData():
     else:
         placeholder = 'var data = [];'
         blob.upload_from_string(placeholder)
-        worker.createGyazodata.delay(uid, session['token']['access_token'])
+        worker.createGyazodata.delay(uid, session['token']['access_token'], v=v)
         return placeholder
