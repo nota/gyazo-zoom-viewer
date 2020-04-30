@@ -21,6 +21,8 @@ services:
     command: python -m flask run --host 0.0.0.0
     ports:
     - 5100:5000
+    networks:
+    - gyazo
   worker:
     <<: *svc
     command: celery worker --app=worker.app --loglevel=info
@@ -30,3 +32,7 @@ services:
 volumes:
   site-packages:
     driver: local
+
+networks:
+  gyazo:
+    name: gyazo

@@ -5,11 +5,12 @@ app.secret_key = os.environ.get('FLASK_SECRET_KEY')
 
 from authlib.integrations.flask_client import OAuth
 oauth = OAuth(app)
+api_base_url = os.environ.get('GYAZO_API_BASE_URL') or 'https://api.gyazo.com/'
 gyazo_client = oauth.register(
     'gyazo',
-    authorize_url='https://api.gyazo.com/oauth/authorize',
-    access_token_url='https://api.gyazo.com/oauth/token',
-    api_base_url='https://api.gyazo.com/',
+    authorize_url=(api_base_url + 'oauth/authorize'),
+    access_token_url=(api_base_url + 'oauth/token'),
+    api_base_url=api_base_url,
     client_id=os.environ.get("GYAZO_CLIENT_ID"),
     client_secret=os.environ.get("GYAZO_CLIENT_SECRET")
 )
