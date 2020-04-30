@@ -15,7 +15,7 @@ def gyazodataGcsBlob(uid, get=False):
         return bucket.get_blob("%s.json" % uid)
     return bucket.blob("%s.json" % uid)
 
-@app.task
+@app.task(acks_late=True)
 def createGyazodata(uid, access_token):
     gyazodata = getGyazoImagesData(
         fetch=True,
