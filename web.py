@@ -1,4 +1,5 @@
 import os, tempfile
+from datetime import datetime, timedelta
 from flask import Flask, redirect, session, send_from_directory, send_file, url_for
 app = Flask(__name__, static_folder='.')
 app.secret_key = os.environ.get('FLASK_SECRET_KEY')
@@ -61,7 +62,8 @@ def getGyazoData():
 def update():
     uid = me()['user']['uid']
     blob = worker.gyazodataGcsBlob(uid, get=True)
-    if (blob and blob.size <= 14):
+    # Avoid update in 10 seconds since last progress
+    if (blob and blob.updated.replace(tzinfo=None) + timedelta(seconds=10) > datetime.now()):
         return "Please wait until gyazodata is available.", 429
 
     blob = worker.gyazodataGcsBlob(uid)

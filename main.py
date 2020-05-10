@@ -5,7 +5,7 @@ import json
 import requests
 import datetime
 
-def getGyazoImagesData(fetch, access_token, write_to_file=True, page_limit=None):
+def getGyazoImagesData(fetch, access_token, write_to_file=True, page_limit=None, progress_callback=None):
     print(fetch)
     pages = []
     if fetch:
@@ -34,6 +34,8 @@ def getGyazoImagesData(fetch, access_token, write_to_file=True, page_limit=None)
                 pages.append(gyazo_res.text)
             if page_limit and page >= page_limit:
                 break
+            if progress_callback:
+                progress_callback(page)
 
     gyazo_viewer_data_all = []
     if write_to_file:

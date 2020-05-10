@@ -17,11 +17,17 @@ def gyazodataGcsBlob(uid, get=False):
 
 @app.task(acks_late=True)
 def createGyazodata(uid, access_token):
+    blob = gyazodataGcsBlob(uid)
+    def progressCallback(page):
+        # Update timestamp in progress
+        placeholder = 'var data = [];'
+        blob.upload_from_string(placeholder)
+
     gyazodata = getGyazoImagesData(
         fetch=True,
         access_token=access_token,
-        write_to_file=False)
-    blob = gyazodataGcsBlob(uid)
+        write_to_file=False,
+        progress_callback=progressCallback)
     blob.upload_from_string(gyazodata)
 
 @app.task
